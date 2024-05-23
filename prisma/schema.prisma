@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Currency {
+  EUR
+  DKK
+  SGD
+  USD
+}
+
+model User {
+  id        String    @id @unique @default(uuid())
+  email     String    @unique
+  name      String?
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Profiles  Profile[]
+}
+
+model Profile {
+  id          String   @id @unique @default(uuid())
+  name        String   @unique
+  description String?
+  User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Items       Item[]
+  Tag         Tag[]
+}
+
+model Item {
+  id          String        @id @unique @default(uuid())
+  name        String
+  description String?
+  price       Float
+  currency    Currency
+  priceEuro   Float?
+  deleted     Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  Profile     Profile       @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId   String
+  ItemComment ItemComment[]
+  Tag         Tag?          @relation(fields: [tagId], references: [id])
+  tagId       String?
+}
+
+model ItemComment {
+  id        String   @id @unique @default(uuid())
+  body      String?
+  score     Int?
+  regret    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  Item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId    String
+}
+
+model Tag {
+  id        String   @id @unique @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String
+  Items     Item[]
+}
+
+model CurrencyRate {
+  id        String   @id @unique @default(uuid())
+  currency  Currency
+  rate      Float
+  createdAt DateTime @default(now())
+}

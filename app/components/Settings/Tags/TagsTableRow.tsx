@@ -57,8 +57,11 @@ export default function TagsTableRow({ tag, onDelete }: TagsTableRowProps) {
           name
         )}
       </TableCell>
+      <TableCell>{new Date(tag.createdAt).toLocaleString()}</TableCell>
       <TableCell>
-        <Button onClick={handleDelete}>Delete</Button>
+        <Button onClick={handleDelete} disabled={tag.Items > 0}>
+          Delete
+        </Button>
       </TableCell>
     </TableRow>
   );

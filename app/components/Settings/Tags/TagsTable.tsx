@@ -40,6 +40,8 @@ export default function TagsTable({ selectedProfile }: TagsTableProps) {
         } catch (error) {
           console.error("Couldn't fetch tags.");
         }
+      } else {
+        setTags([]);
       }
     };
 
@@ -82,6 +84,7 @@ export default function TagsTable({ selectedProfile }: TagsTableProps) {
             <TableHead>
               <TableRow sx={{ '& th': { textAlign: 'center' } }}>
                 <TableCell>Name</TableCell>
+                <TableCell>Creation date</TableCell>
                 <TableCell>Delete</TableCell>
               </TableRow>
             </TableHead>

@@ -143,6 +143,7 @@ export default function ItemsTable() {
           type="submit"
           onClick={handleCreateItemDialog}
           sx={{ width: '200px' }}
+          disabled={!profile}
         >
           Create Item
         </Button>

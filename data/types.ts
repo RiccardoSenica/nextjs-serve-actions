@@ -69,7 +69,7 @@ export const CreateProfileFormSchema = z.object({
 export const ProfileSchema = z.object({
   id: z.string(),
   name: z.string(),
-  createdAt: z.date().optional()
+  createdAt: z.date()
 });
 
 export type Profile = z.infer<typeof ProfileSchema>;
@@ -85,7 +85,8 @@ export const CreateTagFormSchema = z.object({
 export const TagSchema = z.object({
   id: z.string(),
   name: z.string(),
-  createdAt: z.date().optional()
+  Items: z.number(),
+  createdAt: z.date()
 });
 
 export type Tag = z.infer<typeof TagSchema>;

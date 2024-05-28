@@ -56,7 +56,7 @@ export function CreateItemForm({ profile, formAction, tags }: CreateItemProps) {
           </Select>
         </FormControl>
         {profile && (
-          <FormControl variant="outlined">
+          <FormControl variant="outlined" required>
             <InputLabel id="tag-label">Tag</InputLabel>
             <Select
               name="tag"

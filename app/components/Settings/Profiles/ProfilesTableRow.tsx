@@ -55,13 +55,17 @@ export default function ProfilesTableRow({
   };
 
   return (
-    <TableRow key={profile.id}>
-      <TableCell
-        align="center"
-        onClick={handleClick}
-        onDoubleClick={handleDoubleClick}
-        sx={{ bgcolor: profile.id === selected ? 'lightblue' : 'inherit' }}
-      >
+    <TableRow
+      sx={{
+        '& td': {
+          textAlign: 'center',
+          bgcolor: profile.id === selected ? 'lightblue' : 'inherit'
+        }
+      }}
+      onClick={handleClick}
+      key={profile.id}
+    >
+      <TableCell onDoubleClick={handleDoubleClick}>
         {isEditing ? (
           <TextField
             value={name}
@@ -73,7 +77,8 @@ export default function ProfilesTableRow({
           name
         )}
       </TableCell>
-      <TableCell align="center">
+      <TableCell>{new Date(profile.createdAt).toLocaleString()}</TableCell>
+      <TableCell>
         <Button onClick={handleDelete}>Delete</Button>
       </TableCell>
     </TableRow>

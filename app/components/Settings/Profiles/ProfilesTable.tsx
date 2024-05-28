@@ -10,7 +10,7 @@ import {
   Typography
 } from '@mui/material';
 import { nanoid } from 'nanoid';
-import { Dispatch, useEffect, useState } from 'react';
+import { Dispatch, useCallback, useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { Profiles } from '../../../../data/types';
 import { CreateProfileAction } from './actions/CreateProfileAction';
@@ -51,6 +51,11 @@ export default function ProfilesTable({
     fetchProfiles();
   }, [formState, refreshKey]);
 
+  const handleDelete = useCallback(async () => {
+    setRefreshKey((prevKey) => prevKey + 1);
+    setSelectedProfile(undefined);
+  }, [setSelectedProfile]);
+
   return (
     <Stack
       sx={{
@@ -78,6 +83,7 @@ export default function ProfilesTable({
             <TableHead>
               <TableRow sx={{ '& th': { textAlign: 'center' } }}>
                 <TableCell>Name</TableCell>
+                <TableCell>Creation date</TableCell>
                 <TableCell>Delete</TableCell>
               </TableRow>
             </TableHead>
@@ -89,7 +95,7 @@ export default function ProfilesTable({
                     profile={profile}
                     selected={selectedProfile}
                     setSelected={setSelectedProfile}
-                    onDelete={() => setRefreshKey((prevKey) => prevKey + 1)}
+                    onDelete={handleDelete}
                   />
                 ))}
             </TableBody>

@@ -12,7 +12,6 @@
     "typecheck": "tsc --noEmit",
     "prepare": "husky install",
     "migrate": "npx prisma migrate dev",
-    "push": "npx prisma db push",
     "generate": "npx prisma generate",
     "reset": "npx prisma db push --force-reset"
   },
@@ -51,10 +50,10 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.ts": [
+    "*.(ts,tsx)": [
       "eslint --quiet --fix"
     ],
-    "*.{json,ts}": [
+    "*.{json,ts,tsx}": [
       "prettier --write --ignore-unknown"
     ]
   }

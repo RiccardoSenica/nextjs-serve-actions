@@ -2,7 +2,6 @@
 
 import { z } from 'zod';
 import { initializeUser } from '../../../../../data/initializeUser';
-import { Profiles } from '../../../../../data/types';
 import prisma from '../../../../../prisma/prisma';
 
 interface TagsActionProps {
@@ -19,7 +18,7 @@ export async function TagsAction({ selectedProfile }: TagsActionProps) {
   const user = await initializeUser();
 
   try {
-    const profiles = await prisma.tag.findMany({
+    const tags = await prisma.tag.findMany({
       where: {
         Profile: {
           User: {
@@ -28,12 +27,22 @@ export async function TagsAction({ selectedProfile }: TagsActionProps) {
           id: selectedProfile
         }
       },
+      include: {
+        Items: {
+          select: {
+            id: true
+          }
+        }
+      },
       orderBy: {
         createdAt: 'desc'
       }
     });
 
-    return profiles as Profiles;
+    return tags.map((tag) => ({
+      ...tag,
+      Items: tag.Items.length
+    }));
   } catch (error) {
     throw new Error('Failed to find tags');
   }

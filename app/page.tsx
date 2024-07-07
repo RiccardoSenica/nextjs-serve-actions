@@ -1,19 +1,12 @@
 'use client';
 
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Paper, Tab } from '@mui/material';
+import { Tab } from '@mui/material';
 import { Suspense, useState } from 'react';
 import { ProfileContextProvider } from '../contexts/ProfileContextProvider';
+import { Analytics } from './components/Analytics/Analytics';
 import Dashboard from './components/Dashboard/Dashboard';
 import Settings from './components/Settings/Settings';
-
-function Analytics() {
-  return (
-    <Paper sx={{ width: '100%', height: 'calc(100vh - 50px)' }}>
-      Analytics
-    </Paper>
-  );
-}
 
 enum TabValue {
   DASHBOARD = 'DASHBOARD',

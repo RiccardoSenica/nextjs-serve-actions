@@ -4,13 +4,11 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Tab } from '@mui/material';
 import { Suspense, useState } from 'react';
 import { ProfileContextProvider } from '../contexts/ProfileContextProvider';
-import { Analytics } from './components/Analytics/Analytics';
 import Dashboard from './components/Dashboard/Dashboard';
 import Settings from './components/Settings/Settings';
 
 enum TabValue {
   DASHBOARD = 'DASHBOARD',
-  ANALYTICS = 'ANALYTICS',
   SETTINGS = 'SETTINGS'
 }
 
@@ -39,11 +37,6 @@ export default function Home() {
               sx={tabStyle.color(TabValue.DASHBOARD)}
             />
             <Tab
-              label="Analytics"
-              value={TabValue.ANALYTICS}
-              sx={tabStyle.color(TabValue.ANALYTICS)}
-            />
-            <Tab
               label="Settings"
               value={TabValue.SETTINGS}
               sx={tabStyle.color(TabValue.SETTINGS)}
@@ -51,9 +44,6 @@ export default function Home() {
           </TabList>
           <TabPanel sx={tabPanelStyle} value={TabValue.DASHBOARD}>
             <Dashboard />
-          </TabPanel>
-          <TabPanel sx={tabPanelStyle} value={TabValue.ANALYTICS}>
-            <Analytics />
           </TabPanel>
           <TabPanel sx={tabPanelStyle} value={TabValue.SETTINGS}>
             <Settings />
